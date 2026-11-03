@@ -59,7 +59,9 @@ All rules are **stateful** (Stateless = No): replies to allowed traffic return a
 1. Found my public IP (`curl -s https://ifconfig.me`). All my home devices share it through NAT.
 2. Edited ingress rule 1: source `0.0.0.0/0` → `MY.PUBLIC.IP/32`, description "SSH from my home only".
 
-_Screenshot after the change: `04-security-list-after.png` (IP blurred)._
+![Security list after the fix: SSH only from my /32](screenshots/04-security-list-after.png)
+
+SSH now accepts connections from exactly one address (my home public IP, blurred). The ICMP rules are unchanged.
 
 **Trade-off:** my ISP gives a dynamic IP, so the rule must be updated when it changes. The stronger long-term option is **OCI Bastion** (time-limited SSH sessions with no port open to the internet), the equivalent of AWS Session Manager.
 
