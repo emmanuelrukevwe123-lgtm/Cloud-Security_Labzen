@@ -92,8 +92,8 @@ SSH now accepts connections from exactly one address (my home public IP, blurred
 - Not every "open to the world" rule is bad: ICMP type 3 code 4 must stay open or connections can silently fail.
 - IP planning matters even in labs: overlapping ranges block future connections.
 
-## Explain it back
+## Explain it back (my answers)
 
-1. Why does OCI's default security list allow ICMP type 3 code 4 from anywhere?
-2. What's the risk of "egress: all traffic to anywhere"?
-3. After the fix, what happens when a bot in another country tries SSH on port 22?
+1. **Why allow ICMP type 3 code 4 from anywhere?** It carries "fragmentation needed" messages, which servers use for **path MTU discovery** (learning the largest packet size the path can carry). Blocking it makes connections open but then hang when large data flows, a very hard problem to troubleshoot, and the message itself carries little risk.
+2. **What's the risk of egress to anywhere?** If an instance is compromised, the attacker can download tools, connect to a command-and-control server, send stolen data out, or use my server to attack others. Least privilege means allowing only the outbound traffic needed (443 updates, 53 DNS, 123 NTP).
+3. **What happens to a bot trying SSH now?** The security list drops its packets silently. The bot gets no reply (the port looks *filtered*), and SSH on the instance never sees the attempt: no load, no password guessing, no exploit attempts.
