@@ -52,6 +52,7 @@ All rules are **stateful** (Stateless = No): replies to allowed traffic return a
 | --- | --- | --- | --- | --- |
 | F1 | SSH (22) open to the whole internet | Automated brute-force and exploit attempts against any instance in the subnet | **High** | ✅ Restricted to my home public IP (`/32`) |
 | F2 | Egress allows all traffic everywhere | A compromised instance could reach any server (command and control, data theft) | Medium | Accepted for the lab. Production: allow only 80/443 (updates), 53 (DNS), 123 (NTP) |
+| F1b | First SSH fix used a VPN exit IP (shared, changing), not my home IP | The /32 would admit other VPN users and break when the exit changed | Medium | ✅ Corrected to my real ISP IP |
 | F3 | VCN range `10.0.0.0/16` overlaps my home lab (LAN 10.0.1.0/24 is *identical* to this private subnet) | Connecting the networks later (VPN) would break routing | Low (design) | Documented. Future OCI networks use `10.50.0.0/16`, AWS uses `10.40.0.0/16` |
 
 ## 4. The fix (F1)
@@ -62,6 +63,8 @@ All rules are **stateful** (Stateless = No): replies to allowed traffic return a
 ![Security list after the fix: SSH only from my /32](screenshots/04-security-list-after.png)
 
 SSH now accepts connections from exactly one address (my home public IP, blurred). The ICMP rules are unchanged.
+
+**Lesson: check which IP the cloud really sees.** My first fix used the address whatismyip showed, but it was a Cloudflare range (`104.28.x.x`): I was browsing through a VPN. A VPN exit IP is shared with other users and changes often, so the rule allowed the VPN rather than my home. With the VPN off, my real ISP address appeared, and I updated the rule to that `/32`. When connecting, the VPN must stay off.
 
 **Trade-off:** my ISP gives a dynamic IP, so the rule must be updated when it changes. The stronger long-term option is **OCI Bastion** (time-limited SSH sessions with no port open to the internet), the equivalent of AWS Session Manager.
 
