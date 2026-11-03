@@ -1,9 +1,9 @@
 # Cloud Security Labs
 
-Hands-on AWS (and later Azure) projects on my way to **cloud security**, built in public and documented as I learn. Each project covers what I built, the security decisions, how I tested it, how I'd detect an attack on it, and what it cost.
+Hands-on AWS and Oracle Cloud (and later Azure) projects on my way to **cloud security**, built in public and documented as I learn. Each project covers what I built, the security decisions, how I tested it, how I'd detect an attack on it, and what it cost.
 
 **Goal:** job-ready in cloud security by April 2027, without dropping blue teaming.
-**Primary cloud:** AWS · **Second cloud:** Azure · **Tools:** AWS CLI, Terraform, Wazuh, GitHub Actions
+**Primary cloud:** AWS · **Always-free practice:** Oracle Cloud (OCI) · **Later:** Azure · **Tools:** AWS CLI, Terraform, Wazuh, GitHub Actions
 
 Companion repo (SOC / blue team home lab): [soc-home-lab](https://github.com/emmanuelrukevwe123-lgtm/soc-home-lab)
 
@@ -22,6 +22,16 @@ Companion repo (SOC / blue team home lab): [soc-home-lab](https://github.com/emm
 | P12 | Secure IaC pipeline | Terraform, Checkov, GitHub Actions, OIDC | Planned (Mar) |
 | P13 | Multi-cloud SIEM with Microsoft Sentinel | Azure, Entra ID, KQL | Planned (Apr) |
 | ★ | Capstone: secure 3-tier app with detection and response | Everything above | Planned (Apr) |
+
+### Oracle Cloud track (Always Free)
+
+| # | Project | Skills | Status |
+| --- | --- | --- | --- |
+| OCI-01 | [Security review of an OCI network (VCN)](projects/oci-01-vcn-security-review/) | VCN, subnets, security lists, least privilege, IP planning | ✅ 3 Nov 2026 |
+| OCI-02 | Least privilege + audit trail: a read-only test user in a sandbox identity domain, proved with the Audit log | IAM, policies, compartments, Audit | Next |
+| OCI-03 | My own app on the internet: Flask + gunicorn (systemd) + Nginx on an Always Free VM, two firewall layers | Compute, Linux, web, hardening | Planned |
+| OCI-04 | 48 hours on the internet: analysing real SSH and web attacks against my server | Blue team, log analysis | Planned |
+| OCI-05 | The same network and VM built with Terraform | Infrastructure as code | Planned |
 
 Blue-team projects (network, web, phishing and Windows/AD detection) live in [soc-home-lab](https://github.com/emmanuelrukevwe123-lgtm/soc-home-lab).
 
