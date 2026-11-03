@@ -1,4 +1,4 @@
-# Cloud Security Labs
+# Cloud Security Labzen
 
 Hands-on AWS and Oracle Cloud (and later Azure) projects on my way to **cloud security**, built in public and documented as I learn. Each project covers what I built, the security decisions, how I tested it, how I'd detect an attack on it, and what it cost.
 
